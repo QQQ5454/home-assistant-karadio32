@@ -62,6 +62,12 @@ class Karadio32Api:
     async def play(self, station_id: int):
         await self._request({"play": str(station_id)})
 
+    async def next(self):
+        await self._request({"next": ""})
+        
+    async def prev(self):
+        await self._request({"prev": ""})
+
     async def set_volume(self, volume: float):
         level = max(0, min(volume, 1))
         await self._request({"volume": f"{255 * level:.0f}"})
