@@ -1,7 +1,12 @@
 Огромное спасибо Firemoon777 выполнеившему всю работу.
 
 
-Cсылка на интеграцию HASC https://my.home-assistant.io/redirect/hacs_repository/?owner=QQQ5454&repository=home-assistant-karadio32&category=integration
+Cсылка на интеграцию HASC
+
+[![Add HACS repository.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=QQQ5454&repository=home-assistant-karadio32&category=integration)
+
+
+https://my.home-assistant.io/redirect/hacs_repository/?owner=QQQ5454&repository=home-assistant-karadio32&category=integration
 
 После установки службы KaRadio32 перезагрузить HomeAssistant.
 
@@ -9,4 +14,4 @@ Cсылка на интеграцию HASC https://my.home-assistant.io/redirect
 
 Произвети настройку ip адреса. 
 
-p.s. Дополнил интерфейс упралвения командами:следующий трек, предыдущий трек. 
+p.s. Дополнил интерфейс упраления командами:следующий трек, предыдущий трек. 
