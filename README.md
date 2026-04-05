@@ -3,10 +3,10 @@
 
 Cсылка на интеграцию HASC https://my.home-assistant.io/redirect/hacs_repository/?owner=QQQ5454&repository=home-assistant-karadio32&category=integration
 
-
 После установки службы KaRadio32 перезагрузить HomeAssistant.
 
 Установить устройство  KaRadio32 (Настройки/ Устройства/ + Добавить устройство).
 
-
 Произвети настройку ip адреса. 
+
+p.s. Дополнил интерфейс упралвения командами:следующий трек, предыдущий трек. 
