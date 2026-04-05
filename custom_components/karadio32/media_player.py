@@ -55,6 +55,8 @@ class Karadio32(MediaPlayerEntity):
             | MediaPlayerEntityFeature.TURN_OFF
             | MediaPlayerEntityFeature.TURN_ON
             | MediaPlayerEntityFeature.SELECT_SOURCE
+            | MediaPlayerEntityFeature.NEXT_TRACK
+            | MediaPlayerEntityFeature.PREVIOUS_TRACK
             | MediaPlayerEntityFeature.VOLUME_SET
             | MediaPlayerEntityFeature.VOLUME_STEP
         )
@@ -89,6 +91,12 @@ class Karadio32(MediaPlayerEntity):
 
     async def async_turn_off(self) -> None:
         await self.async_media_stop()
+
+    async def async_media_next_track(self) -> None:
+        await self.api.next()
+        
+    async def async_media_previous_track(self) -> None:
+        await self.api.prev()
 
     async def async_select_source(self, source):
         self._attr_source = source
