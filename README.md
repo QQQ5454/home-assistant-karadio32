@@ -6,7 +6,7 @@ Cсылка на интеграцию HASC
 [![Add HACS repository.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=QQQ5454&repository=home-assistant-karadio32&category=integration)
 
 
-https://my.home-assistant.io/redirect/hacs_repository/?owner=QQQ5454&repository=home-assistant-karadio32&category=integration
+
 
 После установки службы KaRadio32 перезагрузить HomeAssistant.
 
