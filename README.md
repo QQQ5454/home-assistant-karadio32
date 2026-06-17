@@ -15,3 +15,9 @@ Cсылка на интеграцию HASC
 Произвети настройку ip адреса, в формате http://XXX.XXX.XXX.XXX  
 
 p.s. Дополнил интерфейс упраления командами:следующий трек, предыдущий трек. 
+p.p.s. С целью исключения ложных сообщений о проблеме в логах Home assistant при физическом выключении устройства KaRadio32.  Рекомендуется добавить в  configuration.yaml
+
+logger:
+  default: warning
+  logs:
+    custom_components.karadio32: critical 
