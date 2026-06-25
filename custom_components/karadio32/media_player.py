@@ -20,6 +20,7 @@ from homeassistant.helpers import config_validation as cv
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.entity_platform import DiscoveryInfoType
+from homeassistant.helpers.update_coordinator import UpdateFailed  # Импортируем исключение
 
 from .const import DOMAIN
 from .karadio32 import Karadio32Api
@@ -44,6 +45,7 @@ class Karadio32(MediaPlayerEntity):
         super().__init__()
         self.api: Karadio32Api = api
         self._attr_unique_id = f"KaRadio32-{api.host}"
+        self._attr_available = True  # Инициализируем флаг доступности устройства
         if source_list:
             self._attr_source_list = source_list
         else:
@@ -62,6 +64,11 @@ class Karadio32(MediaPlayerEntity):
         )
         self.sw_version = sw_version
         self._attr_volume_step = 0.01
+
+    @property
+    def available(self) -> bool:
+        """Return True if entity is available."""
+        return self._attr_available
 
     @property
     def device_info(self) -> DeviceInfo:
@@ -107,15 +114,31 @@ class Karadio32(MediaPlayerEntity):
         await self.api.set_volume(volume)
 
     async def async_update(self):
-        info = await self.api.info()
-        self._attr_volume_level = int(info["vol"]) / 255
-        self._attr_media_title = info["tit"]
-        self._attr_state = (
-            MediaPlayerState.PAUSED if info["sts"] == "0" else MediaPlayerState.PLAYING
-        )
-        source_id = int(info.get("num", 0))
-        if source_id < len(self._attr_source_list):
-            self._attr_source = self._attr_source_list[source_id]
+        try:
+            info = await self.api.info()
+            
+            # Если данные успешно получены, устройство в сети
+            self._attr_available = True
+            
+            self._attr_volume_level = int(info["vol"]) / 255
+            self._attr_media_title = info["tit"]
+            self._attr_state = (
+                MediaPlayerState.PAUSED if info["sts"] == "0" else MediaPlayerState.PLAYING
+            )
+            source_id = int(info.get("num", 0))
+            if source_id < len(self._attr_source_list):
+                self._attr_source = self._attr_source_list[source_id]
+                
+        except UpdateFailed:
+            # Устройство оффлайн, переводим статус в unavailable
+            if self._attr_available:
+                _LOGGER.warning("Karadio32 (%s) is offline", self.api.host)
+            self._attr_available = False
+            
+        except Exception as err:
+            # Защита от любых других непредвиденных сетевых ошибок
+            _LOGGER.error("Error updating Karadio32: %s", err)
+            self._attr_available = False
 
 
 async def async_setup_entry(
